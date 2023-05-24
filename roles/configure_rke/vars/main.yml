@@ -44,7 +44,7 @@ k8s_master_ports:
   - 10254/tcp
   - 30000-32767/tcp
   - 30000-32767/udp
-# k8s_etcd_ports:
+k8s_etcd_ports:
   - 2376/tcp
   - 2379-2380/tcp
   - 8472/udp

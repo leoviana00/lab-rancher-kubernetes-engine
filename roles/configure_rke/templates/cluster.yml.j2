@@ -40,8 +40,8 @@ dns:
   provider: {{ rke_dns_provider }}
 {% endif %}
 nodes:
-{% for host in groups.masters %}
-- address: {{ hostvars[inventory_hostname].ansible_facts[network_interface].ipv4.address }}
+{% for host in groups['k8s'] %}
+- address: {{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}
   hostname_override: {{ hostvars[host]['ansible_hostname'] | lower }}
   user: {{ rke_user }}
   role:

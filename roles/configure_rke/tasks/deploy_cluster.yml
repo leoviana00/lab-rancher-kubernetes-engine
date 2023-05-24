@@ -49,7 +49,7 @@
   become_user: "{{ rke_user }}"
   shell: |
     set -o pipefail
-    /usr/local/bin/rke up | tee rke-up.log
+    /usr/local/bin/rke up --ignore-docker-version | tee rke-up.log
   args:
     executable: /bin/bash
     chdir: "{{ _rke_config_dir }}"
