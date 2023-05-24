@@ -1,0 +1,39 @@
+---
+all:
+  vars:
+    ambiente: virtualbox
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_ssh_private_key_file: keys/rancher
+
+  hosts:
+    # -------- MASTERS ---------
+    rke-master-01:
+      ansible_host: 192.168.50.11
+    rke-master-02:
+      ansible_host: 192.168.50.12
+    rke-master-03:
+      ansible_host: 192.168.50.13
+    
+    # -------- WORKERS ---------
+    rke-worker-01:
+      ansible_host: 192.168.50.21
+    rke-worker-02:
+      ansible_host: 192.168.50.22
+   
+  children:
+
+    masters:
+      hosts:
+        rke-master-01:
+        rke-master-02:
+        rke-master-03:
+
+    workers:
+      hosts:
+        rke-worker-01:
+        rke-worker-02:
+
+    k8s:
+      children:
+        masters:
+        workers:

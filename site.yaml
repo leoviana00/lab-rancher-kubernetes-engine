@@ -1,0 +1,21 @@
+---
+- name: Configurar Hosts
+  hosts: all
+  # user: root
+  remote_user: vagrant
+  become: true
+  tags: 
+    - setup
+  roles:
+    - configure_hosts
+
+- name: Instalar/Configurar RKE
+  hosts: all
+  remote_user: vagrant
+  become: true
+  gather_facts: true
+  tags: 
+    - rke
+  roles:
+    - role: configure_rke
+
