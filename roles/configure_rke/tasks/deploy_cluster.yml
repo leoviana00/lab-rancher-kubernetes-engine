@@ -57,6 +57,14 @@
   run_once: True
   delegate_to: "{{ rke_node }}"
 
+- name: Install kubectl
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/{{ rke_kubernetes_version.split('-', 1)[0] }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    force: yes
+    mode: "+rx"
+  delegate_to: "{{ rke_node }}"
+
 - name: Check deploy Kubernetes with RKE
   lineinfile:
     path: "{{ _rke_config_dir }}/rke-up.log"
@@ -71,7 +79,7 @@
 
 - name: Ensure $HOME/.kube exists
   file:
-    path: ~/.kube
+    path: /home/{{ rke_user }}/.kube
     state: directory
     mode: '0755'
   run_once: True
@@ -81,7 +89,7 @@
   copy:
     remote_src: True
     src: "{{ _rke_config_dir }}/kube_config_cluster.yml"
-    dest: ~/.kube/config
+    dest: /home/{{ rke_user }}/.kube/config
     mode: '0644'
   run_once: True
   delegate_to: "{{ rke_node }}"
