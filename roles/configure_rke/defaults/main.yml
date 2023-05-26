@@ -2,7 +2,7 @@
 rke_user: rke
 
 # Cluster Name
-rke_cluster_name: Cluster_Rke_Dev
+rke_cluster_name: Cluster-RKE-{{ ambiente }}
 
 # Kubernetes Versions
 kubernetes_supported_versions:
@@ -25,11 +25,11 @@ rke_cluster_network_cidr: 10.42.0.0/16
 rke_service_network_cidr: 10.43.0.0/16
 
 # Plugin Network Config
-cluster_interface: "{{ ansible_default_ipv4.interface }}"
-rke_network_config:
-  plugin: canal
-  options:
-    canal_iface: "{{ cluster_interface }}"
+# cluster_interface: "{{ ansible_default_ipv4.interface }}"
+rke_network_plugin: calico
+  # plugin: calico
+  # options:
+  #   canal_iface: "{{ cluster_interface }}"
 
 # Nodes configs
 rke_node: "{{ groups['masters'] | first }}"
